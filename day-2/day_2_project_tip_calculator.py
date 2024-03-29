@@ -27,14 +27,55 @@ final_amount_per_person = (total_bill / total_people) * (1 + (percentage_tip / 1
 print(f"Each person should pay: ${final_amount_per_person:.2f}")
 """
 
-#Angela's Solution
-print("Welcome to the tip calculator!")
-bill = input("What was the total bill? $")
-tip = input("How much tip would you like to give? 10, 12, or 15? ")
-people = int(input("How many people to split the bill? "))
-tip_as_percent = tip / 100
-total_tip_amount = bill * tip_as_percent
-total_bill = bill + total_tip_amount
-bill_per_person = total_bill / people
-final_amount = "{:.2f}".format(bill_per_person)
-print(f"Each person should pay: ${final_amount}")
+# Improved Version
+print("Welcome to the tip calculator.")
+
+while True:
+    try:
+        total_bill = float(input("What was the total bill amount? \n$"))
+        if total_bill <= 0:
+            print("Please enter a positive number.")
+            continue
+    except ValueError:
+        print("Please enter a valid number.")
+        continue
+
+    while True:
+        try:
+            percentage_tip = float(input("What percentage tip would you like to give? 10%, 12%, 15%, 20%, or 25% \n"))
+            if percentage_tip < 0:
+                print("Please enter a positive number.")
+            else:
+                break
+        except ValueError:
+            print("Please enter a valid number.")
+
+    while True:
+        try:
+            people = int(input("How many people to split the bill? \n"))
+            if people <= 0:
+                print("Number of people should be at least one!")
+            else:
+                break
+        except ValueError:
+            print("Please enter an integer.")
+
+    final_amount_per_person = (total_bill / people) * (1 + (percentage_tip / 100))
+    print(f"Each person should pay: ${final_amount_per_person:.2f}")
+
+    repeat = input("Do you want to calculate another tip? (Yes/No): ").lower()
+    if repeat != "yes":
+        break
+
+
+# #Angela's Solution
+# print("Welcome to the tip calculator!")
+# bill = input("What was the total bill? $")
+# tip = input("How much tip would you like to give? 10, 12, or 15? ")
+# people = int(input("How many people to split the bill? "))
+# tip_as_percent = tip / 100
+# total_tip_amount = bill * tip_as_percent
+# total_bill = bill + total_tip_amount
+# bill_per_person = total_bill / people
+# final_amount = "{:.2f}".format(bill_per_person)
+# print(f"Each person should pay: ${final_amount}")
